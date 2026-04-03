@@ -123,7 +123,7 @@ specific mathematical “lens” (a filter function), slicing the data into
 overlapping chunks, and then connecting those chunks to form a network
 graph.
 
-\###Choosing Your Lens
+### Choosing Your Lens
 
 The power of Mapper lies in the filter you choose. In the app, you can
 change the lens to reveal different properties of the shape you drew: 1.
@@ -149,6 +149,27 @@ cell types!
     the algorithm perfectly isolates the three branching tips of your
     drawing.
 
+## Explore TDA methods with an interactive app
+
+Here is a Shiny app,
+[TopologgeR](https://aleliav.shinyapps.io/tda_app/), to explore two
+powerful TDA methods, persistent homology and the Mapper. The app is
+vibe-coded with help of Gemini 3.1 Pro model.
+
+It is not intended to perform an actual analysis of multidimensional
+data, there are several excellent tools to do so, using R, Python or
+Julia packages (see Recommended resources below). The purpose of this
+app is rather to make exploration of TDA fun by studying topologies of
+simple 2D datasets that you can create yourself.
+
+### The input canvas
+
+### The parameter setup
+
+### The persistent homology output (upper plots)
+
+### The Mapper output (lower plots)
+
 ## Recommended resources
 
 - [Introduction to to Persistent
@@ -169,7 +190,10 @@ cell types!
 - [Topology and
   Data](https://www.math.kth.se/math/GRU/2013.2014/SF2704/Papers/Topologyanddata.pdf)
   by Gunnar Carlsson (published in: Bulletin Am Math Soc 2009 46(2):
-  255-308.). A technical yet accessible introduction to TDA.
+  255-308.). A technical yet accessible introduction to TDA. He also
+  released [presentation
+  slides](https://www.stat.uchicago.edu/~lekheng/meetings/mmds/slides2008/carlsson.pdf)
+  on the topic.
 
 - [Ripser](https://mtsch.github.io/Ripserer.jl/v0.14/), a fast
   persistent homology package (written in Julia).

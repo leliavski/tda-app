@@ -7,7 +7,20 @@ library(igraph)
 
 # 1. User Interface
 ui <- fluidPage(
-  titlePanel("2D Topology: Vietoris-Rips Filtration"),
+  
+  titlePanel(
+    tagList(
+      "TopologgeR: 2D Topology Explorer",
+      br(), # Line break
+      tags$span(
+        style = "font-size: 16px; font-weight: normal; color: #555;",
+        "New to Topological Data Analysis (TDA)? ",
+        tags$a(href = "https://github.com/leliavski/tda-app", 
+               target = "_blank", # Opens in a new tab
+               "Read the beginner's guide here.")
+      )
+    )
+  ),
   
   sidebarLayout(
     sidebarPanel(
@@ -40,7 +53,7 @@ ui <- fluidPage(
       actionButton("clear", "Clear Canvas"),
       
       hr(),
-      helpText("Draw a shape (like a circle or figure-eight) and click Submit.")
+      helpText("Draw a shape and click Submit.")
     ),
     
     mainPanel(
@@ -53,13 +66,13 @@ ui <- fluidPage(
                )
         ),
         column(6, 
-               h4("Data & VR Complex (1-Skeleton)"),
+               h4("Data & VR Complex (1-skeleton)"),
                plotOutput("pointPlot", width = "350px", height = "350px")
         )
       ),
       fluidRow(
         column(6, 
-               h4("Persistence Barcode"),
+               h4("Persistence Barcodes"),
                plotOutput("barcodePlot", height = "300px")
         ),
         column(6, 
@@ -69,7 +82,7 @@ ui <- fluidPage(
       ),
       fluidRow(
         column(6, 
-               h4("Mapper Pre-images (Data Cover)"),
+               h4("Mapper Pre-images & Coverings"),
                plotOutput("mapperDataPlot", height = "400px")
         ),
         column(6, 
