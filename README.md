@@ -53,15 +53,12 @@ loss of relevant information is minimized. What is relevant information?
 
 Topologies relevant to biological systems
 
+If we cannot see certain topologies, can we at least know that they are
+there?
+
 ------------------------------------------------------------------------
 
 ## Gemini’s draft
-
-If you look at a cluster of cells under a microscope, you don’t just see
-a random scatter of points; you see structures, branches, and loops.
-Human brains are naturally excellent at finding the “shape” of data.
-However, standard statistical tools (like mean, variance, or linear
-regression) often fail to capture these complex global shapes.
 
 *Topological Data Analysis (TDA)* is a modern mathematical framework
 that teaches computers how to see shapes the way humans do.
@@ -151,24 +148,58 @@ cell types!
 
 ## Explore TDA methods with an interactive app
 
-Here is a Shiny app,
-[TopologgeR](https://aleliav.shinyapps.io/tda_app/), to explore two
-powerful TDA methods, persistent homology and the Mapper. The app is
-vibe-coded with help of Gemini 3.1 Pro model.
+[TopologgeR](https://aleliav.shinyapps.io/tda_app/) is a Shiny app to
+explore two powerful TDA methods, persistent homology and the Mapper.
+The app is vibe-coded with help of Gemini 3.1 Pro model.
 
 It is not intended to perform an actual analysis of multidimensional
-data, there are several excellent tools to do so, using R, Python or
-Julia packages (see Recommended resources below). The purpose of this
-app is rather to make exploration of TDA fun by studying topologies of
-simple 2D datasets that you can create yourself.
+data. There are several excellent tools to do so, using R, Python or
+Julia packages (see Recommended resources below). Instead, the purpose
+of this app is to make exploration of TDA fun by studying topologies of
+simple 2D datasets that you can create by yourself, simply by drawing
+some shapes and studying detected features.
 
-### The input canvas
+### The input: Drawing canvas
+
+Draw a shape or several shapes. Multiple strokes allowed.
 
 ### The parameter setup
 
+The drawn shape will be used to generate a data set for topological
+analysis. Define a number of points and add noise to your data.
+
+For **persistent homology**, adjust the filtration scale ($\epsilon$) to
+observe how persistence barcodes are generated and topological features
+are summarized on the persistence diagram. The VR Complex (1-skeleton)
+that corresponds to a chosen $\epsilon$ value can be visualized
+separately on the data plot.
+
+For the **Mapper**, the following parameters can be adjusted:
+
+- **Filter Function**:
+
+  - *X or Y coordinates*: Performs linear slicing of the data.
+  - *Radial distance*: Slices the data in concentric rings.
+  - *Eccentricity*: Measures the distance of a point from the center of
+    the data. Ideal for detecting branching structures.
+
+- **Number of Intervals (Resolution)**
+
+- **Percent Overlap**
+
 ### The persistent homology output (upper plots)
 
+- **The data plot with VR complexes** (shown as 1-skeleton)
+
+- **Persistence barcodes**
+
+- **Persistence diagram**
+
 ### The Mapper output (lower plots)
+
+- **The data plot with pre-images and coverings**
+
+- **The Mapper graph**
 
 ## Recommended resources
 

@@ -111,17 +111,17 @@ For the **Mapper**, the following parameters can be adjusted:
 
 ### The persistent homology output (upper plots)
 
-- The data plot with VR complexes shown as 1-skeleton
+- **The data plot with VR complexes** (shown as 1-skeleton)
 
-- Persistence barcodes
+- **Persistence barcodes**
 
-- Persistence diagram
+- **Persistence diagram**
 
 ### The Mapper output (lower plots)
 
-- The data plot with pre-images and coverings
+- **The data plot with pre-images and coverings**
 
-- The Mapper graph
+- **The Mapper graph**
 
 
 
