@@ -1,0 +1,10 @@
+name: tda_app
+title:
+username: aleliav
+account: aleliav
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 17048369
+bundleId: 11797769
+url: https://aleliav.shinyapps.io/tda_app/
+version: 1

@@ -1,0 +1,177 @@
+A Beginner’s Guide to Topological Data Analysis
+================
+Alexei Leliavski
+2026-04-02
+
+## Introduction: Invisible dimensions
+
+We live in the era of multidimensional data. Since the big-data
+revolution in the early 2000s, biologists keep trying to comprehend what
+it means to look at data points with thousands of features.
+
+People are poor at comprehending things that live in many dimensions.
+Sometimes, we get easily confused even with 3 dimensions.
+
+How can we imagine a 4-dimensional object in 3 dimensions? Let us rather
+begin with a simpler question: How can we imagine a two-dimensional
+object in one dimension? We can do it only because we live in a
+3-dimensional world and we have eyes. But how would a one-dimensional
+being understand a two-dimensional object? Can we project a 2D structure
+onto a line and preserve its structure? The answer is simple: No, it is
+not possible. Unless the object lives in two dimensions but has only one
+dimension, e.g. it’s a segment of a line of curve.
+
+What does it mean to “preserve a structure” (more precisely, a
+topology)? It means that points that are close to each other in the
+original multidimensional data set, will stay close in a “reduced data
+set” with fewer dimensions. And this is an impossible task for most
+topologies. We cannot project a topology from
+
+This is a crucial message: Any higher-dimensional topologies different
+from those we used to find in two or three dimensions
+
+Why are dimension reduction techniques then so popular and widely used
+for visualizing multidimensional data? Because we focus on extremely
+simple topologies, namely, points. We assume that individual points
+(cells or organisms) gather around a steady-state point, an attractor.
+Cells (or organisms) of different states or types will occupy distinct
+attractors. We therefore need to measure which points are close to each
+other in multiple dimensions, and which are farther apart, and based on
+this arrange the points accordingly on a two-dimensional projection. In
+technical term, such a method would preserve local distances.
+
+However, many biological phenomena go beyond point attractors.
+Biological systems evolve, bifurcate, cycle, become chaotic and even
+fractal. To detect paths and branches during cell differentiation, a
+family of methods has been developed, including so-called trajectory and
+pseudotime analysis. We also have techniques to spot cycling and
+rhythmic behavior.
+
+Dimension reduction (DR) methods aim to squeeze and project hundreds or
+even thousands of features into a flat surface and to ensure that the
+loss of relevant information is minimized. What is relevant information?
+
+Topologies relevant to biological systems
+
+------------------------------------------------------------------------
+
+## Gemini’s draft
+
+If you look at a cluster of cells under a microscope, you don’t just see
+a random scatter of points; you see structures, branches, and loops.
+Human brains are naturally excellent at finding the “shape” of data.
+However, standard statistical tools (like mean, variance, or linear
+regression) often fail to capture these complex global shapes.
+
+*Topological Data Analysis (TDA)* is a modern mathematical framework
+that teaches computers how to see shapes the way humans do.
+
+This interactive app allows you to draw 2D shapes and immediately see
+how two powerful TDA algorithms—Persistent Homology and the Mapper
+Algorithm—make sense of your drawing. While this app works in 2D, the
+intuition you build here applies directly to the complex,
+high-dimensional datasets common in biology, such as gene expression
+profiles or phylogenetic trees.
+
+## Part 1: Persistent Homology (Finding the Signal in the Noise)
+
+Imagine taking off your glasses and looking at a pointillist painting.
+As your vision gets blurrier, individual dots merge into blobs, blobs
+merge into circles, and eventually, the whole painting becomes one giant
+smudge. Persistent Homology is the mathematical version of this blurring
+process. It helps us distinguish true, underlying structures from random
+noise.
+
+### The Vietoris-Rips Complex: Connecting the Dots
+
+In the app, you will notice a slider for a distance parameter called
+Epsilon ($\epsilon$). When $\epsilon$ is 0, every data point you drew is
+isolated. As you increase $\epsilon$, you are telling the computer: “If
+two points are closer than this distance, connect them with a line.” As
+$\epsilon$ grows, points form connected clusters (components), and
+eventually, chains of connected points might close in on themselves to
+form empty holes (loops). This evolving web of connections is called a
+Vietoris-Rips (VR) Complex.
+
+### Reading the Barcode
+
+How do we know which loops and clusters are “real” and which are just
+accidental artifacts of the data? We track their lifespans using a
+Persistence Barcode.
+
+- Birth: The exact $\epsilon$ distance where a feature (like a loop)
+  first appears.
+- Death: The $\epsilon$ distance where the feature gets filled in or
+  merges with another feature.
+- Persistence: The length of the bar (Death minus Birth).
+
+*The Golden Rule of TDA*: Short bars are considered “noise” (accidental
+connections that quickly get filled in). Long bars are considered “true
+topological features” (fundamental shapes of the data).
+
+Biological Application: In structural biology, persistent homology is
+used to identify true, stable binding pockets in complex protein
+structures, distinguishing them from temporary, unstable gaps.
+
+## Part 2: The Mapper Algorithm (Building a Data Skeleton)
+
+While Persistent Homology is great for finding loops and clusters, the
+Mapper Algorithm is designed to give you a simplified, highly visual
+“skeleton” of your entire dataset. It excels at summarizing continuous,
+branching structures. Mapper works by looking at your data through a
+specific mathematical “lens” (a filter function), slicing the data into
+overlapping chunks, and then connecting those chunks to form a network
+graph.
+
+\###Choosing Your Lens
+
+The power of Mapper lies in the filter you choose. In the app, you can
+change the lens to reveal different properties of the shape you drew: 1.
+X or Y Coordinates (Left/Right or Top/Bottom): Slices the data linearly.
+This is great for understanding progression along a single axis. 2.
+Radial Distance (Center Outward): Slices the data in concentric rings. A
+drawing of a hollow circle will map into a straight line, showing that
+all points are equidistant from the center. 3. Eccentricity (Branch
+Extremes): Measures how far a point is from the “center of mass” of the
+data. The center will be one color, and the tips of any branches will be
+another. Biological Application: Mapper is famous in bioinformatics for
+analyzing single-cell RNA sequencing data. By using a biological lens
+(like the expression of a specific maturity gene), Mapper can arrange
+thousands of individual cells into a branching “trajectory” graph,
+showing exactly how stem cells differentiate into distinct specialized
+cell types!
+
+## Try It Yourself!
+
+1.  Draw a Figure-Eight. Look at the barcode—can you spot the two long
+    red bars representing the two distinct loops?
+2.  Draw a Y-Shape. Change the Mapper lens to Eccentricity. Watch how
+    the algorithm perfectly isolates the three branching tips of your
+    drawing.
+
+## Recommended resources
+
+- [Introduction to to Persistent
+  Homology](https://www.youtube.com/watch?v=2PSqWBIrn90) by [Matthew
+  Wright](https://www.mlwright.org/)
+
+- [An introduction to persistent
+  homology](https://www.youtube.com/watch?v=OkDs9Wj5G1U) by Henry Adams,
+  as a part of his [Applied Topology
+  course](https://www.youtube.com/playlist?list=PL4kY-dS_mSmLFh9BpI3LqIQnw6KMg0jlt)
+
+- [Topological Modeling of Complex
+  Data](https://www.youtube.com/watch?v=8nUBqawu41k) by [Gunnar
+  Carlsson](https://en.wikipedia.org/wiki/Gunnar_Carlsson) with
+  introduction to the Mapper algorithm and many examples of TDA
+  application.
+
+- [Topology and
+  Data](https://www.math.kth.se/math/GRU/2013.2014/SF2704/Papers/Topologyanddata.pdf)
+  by Gunnar Carlsson (published in: Bulletin Am Math Soc 2009 46(2):
+  255-308.). A technical yet accessible introduction to TDA.
+
+- [Ripser](https://mtsch.github.io/Ripserer.jl/v0.14/), a fast
+  persistent homology package (written in Julia).
+
+------------------------------------------------------------------------
