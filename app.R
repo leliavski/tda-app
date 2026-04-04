@@ -92,50 +92,130 @@ ui <- fluidPage(
       ),
       
       # JavaScript Bridge (Unchanged from previous version)
+      
       tags$script(HTML("
-        var canvas = document.getElementById('drawCanvas');
-        var ctx = canvas.getContext('2d');
-        ctx.lineWidth = 2;
-        ctx.lineCap = 'round';
-        
-        var drawing = false;
-        var coords = [];
-        var stroke_id = 0; // Track individual pen strokes
+  var canvas = document.getElementById('drawCanvas');
+  var ctx = canvas.getContext('2d');
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+
+  var drawing = false;
+  var coords = [];
+  var stroke_id = 0;
+
+  // --- Helper: get position relative to canvas for both mouse and touch ---
+  function getPos(e) {
+    var rect = canvas.getBoundingClientRect();
+    var src = e.touches ? e.touches[0] : e; // use first touch point or mouse event
+    return {
+      x: src.clientX - rect.left,
+      y: src.clientY - rect.top
+    };
+  }
+
+  // --- Mouse events ---
+  canvas.addEventListener('mousedown', function(e) {
+    drawing = true;
+    stroke_id++;
+    var pos = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    coords.push({x: pos.x, y: pos.y, stroke: stroke_id});
+  });
+
+  canvas.addEventListener('mousemove', function(e) {
+    if (drawing) {
+      var pos = getPos(e);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      coords.push({x: pos.x, y: pos.y, stroke: stroke_id});
+    }
+  });
+
+  canvas.addEventListener('mouseup', function(e) {
+    drawing = false;
+    Shiny.setInputValue('draw_coords', JSON.stringify(coords));
+  });
+
+  // --- Touch events ---
+  canvas.addEventListener('touchstart', function(e) {
+    e.preventDefault(); // prevent scroll/zoom while drawing
+    drawing = true;
+    stroke_id++;
+    var pos = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    coords.push({x: pos.x, y: pos.y, stroke: stroke_id});
+  }, { passive: false });
+
+  canvas.addEventListener('touchmove', function(e) {
+    e.preventDefault(); // prevent scroll/zoom while drawing
+    if (drawing) {
+      var pos = getPos(e);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      coords.push({x: pos.x, y: pos.y, stroke: stroke_id});
+    }
+  }, { passive: false });
+
+  canvas.addEventListener('touchend', function(e) {
+    drawing = false;
+    Shiny.setInputValue('draw_coords', JSON.stringify(coords));
+  });
+
+  // --- Clear button ---
+  document.getElementById('clear').addEventListener('click', function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    coords = [];
+    stroke_id = 0;
+    Shiny.setInputValue('draw_coords', '');
+  });
+"))
       
-        canvas.addEventListener('mousedown', function(e) {
-          drawing = true;
-          stroke_id++; // Increment ID for every new stroke
-          var rect = canvas.getBoundingClientRect();
-          var x = e.clientX - rect.left;
-          var y = e.clientY - rect.top;
-          ctx.beginPath();
-          ctx.moveTo(x, y);
-          coords.push({x: x, y: y, stroke: stroke_id});
-        });
-      
-        canvas.addEventListener('mousemove', function(e) {
-          if(drawing) {
-            var rect = canvas.getBoundingClientRect();
-            var x = e.clientX - rect.left;
-            var y = e.clientY - rect.top;
-            ctx.lineTo(x, y);
-            ctx.stroke();
-            coords.push({x: x, y: y, stroke: stroke_id});
-          }
-        });
-      
-        canvas.addEventListener('mouseup', function(e) {
-          drawing = false;
-          Shiny.setInputValue('draw_coords', JSON.stringify(coords));
-        });
-      
-        document.getElementById('clear').addEventListener('click', function() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          coords = [];
-          stroke_id = 0;
-          Shiny.setInputValue('draw_coords', '');
-        });
-      "))
+      # tags$script(HTML("
+      #   var canvas = document.getElementById('drawCanvas');
+      #   var ctx = canvas.getContext('2d');
+      #   ctx.lineWidth = 2;
+      #   ctx.lineCap = 'round';
+      #   
+      #   var drawing = false;
+      #   var coords = [];
+      #   var stroke_id = 0; // Track individual pen strokes
+      # 
+      #   canvas.addEventListener('mousedown', function(e) {
+      #     drawing = true;
+      #     stroke_id++; // Increment ID for every new stroke
+      #     var rect = canvas.getBoundingClientRect();
+      #     var x = e.clientX - rect.left;
+      #     var y = e.clientY - rect.top;
+      #     ctx.beginPath();
+      #     ctx.moveTo(x, y);
+      #     coords.push({x: x, y: y, stroke: stroke_id});
+      #   });
+      # 
+      #   canvas.addEventListener('mousemove', function(e) {
+      #     if(drawing) {
+      #       var rect = canvas.getBoundingClientRect();
+      #       var x = e.clientX - rect.left;
+      #       var y = e.clientY - rect.top;
+      #       ctx.lineTo(x, y);
+      #       ctx.stroke();
+      #       coords.push({x: x, y: y, stroke: stroke_id});
+      #     }
+      #   });
+      # 
+      #   canvas.addEventListener('mouseup', function(e) {
+      #     drawing = false;
+      #     Shiny.setInputValue('draw_coords', JSON.stringify(coords));
+      #   });
+      # 
+      #   document.getElementById('clear').addEventListener('click', function() {
+      #     ctx.clearRect(0, 0, canvas.width, canvas.height);
+      #     coords = [];
+      #     stroke_id = 0;
+      #     Shiny.setInputValue('draw_coords', '');
+      #   });
+      # "))
     )
   )
 )

@@ -5,6 +5,9 @@ account: aleliav
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 17048369
-bundleId:
+bundleId: 11801005
 url: https://aleliav.shinyapps.io/tda_app/
 version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: README_files/figure-gfm/pressure-1.png
