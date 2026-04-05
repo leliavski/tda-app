@@ -27,7 +27,7 @@ The algorithm begins by selecting a distance threshold (a radius of a circle aro
 
 By tracking which topological structures appear and disappear as the threshold grows, PH reveals the persistent features of the dataset — those that survive across a wide range of scales. The method excels at detecting loops, lines and clusters (and their higher-dimensional analogues), but it cannot distinguish between more intricate structures such as those with branching.
 
-To better understand the topological terminology (k-skeleton, nerve, Cech complex, VR complex), you can use a little interactive tool, [the Simplicial Complex Explorer](simplicial_complex_explorer.html).
+To better understand the topological terminology (k-skeleton, nerve, Cech complex, VR complex), you can use a little interactive tool, [the Simplicial Complex Explorer](https://leliavski.github.io/pages/simplicial_complex_explorer.html).
 
 
 ![Visualization of persistent homology](README_files/figure-gfm/PH_overview.png)
