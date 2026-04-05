@@ -61,9 +61,9 @@ analogues), but it cannot distinguish between more intricate structures
 such as those with branching.
 
 To better understand the topological terminology (k-skeleton, nerve,
-Cech complex, VR complex), you can use a little interactive tool, <a
-href="https://leliavski.github.io/pages/simplicial_complex_explorer.html"
-target="_blank">the Simplicial Complex Explorer</a>.
+Cech complex, VR complex), you can use a little interactive tool, [the
+Simplicial Complex
+Explorer](https://leliavski.github.io/pages/simplicial_complex_explorer.html){:target=“\_blank”}.
 
 ![Visualization of persistent
 homology](README_files/figure-gfm/PH_overview.png) [Image
