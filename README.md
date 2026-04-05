@@ -62,7 +62,7 @@ such as those with branching.
 
 To better understand the topological terminology (k-skeleton, nerve,
 Cech complex, VR complex), you can use a little interactive tool, <a
-href="https://leliavski.github.io/pages/simplicial_complex_explorer_v1.html"
+href="https://leliavski.github.io/pages/simplicial_complex_explorer_v2.html"
 target="_blank">the Simplicial Complex Explorer</a>
 
 ![Visualization of persistent
