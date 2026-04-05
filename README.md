@@ -60,6 +60,10 @@ detecting loops, lines and clusters (and their higher-dimensional
 analogues), but it cannot distinguish between more intricate structures
 such as those with branching.
 
+To better understand the topological terminology (k-skeleton, nerve,
+Cech complex, VR complex), you can use a little interactive tool, [the
+Simplicial Complex Explorer](simplicial_complex_explorer.html).
+
 ![Visualization of persistent
 homology](README_files/figure-gfm/PH_overview.png) [Image
 source](https://www.sciencedirect.com/science/article/pii/S1532046422000983)
